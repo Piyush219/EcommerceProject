@@ -3,6 +3,7 @@ const Footer = () =>{
     return (
         <div className={styles.footerBody}>
             <h2>The Generics</h2>
+            
         </div>
     )
 }

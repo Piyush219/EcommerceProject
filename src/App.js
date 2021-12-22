@@ -1,3 +1,5 @@
+import { useState } from "react";
+import Cart from "./Components/Cart/Cart";
 import Footer from "./Components/Layout/Footer/Footer";
 import Header from "./Components/Layout/Header/Header";
 import Merch from "./Components/Layout/Merch/Merch";
@@ -16,12 +18,23 @@ function App() {
     'marginLeft': '2%',
     'marginTop': '5%'
   }
+  
+  const[cartItems, setCartItems] = useState(false)
+  const CartItems = () =>{
+    setCartItems(true);
+  }
+  const cartItemsClose = () =>{
+    setCartItems(false)
+  }
   return (
     <div>
-      <Header/>
+      
+      <Header showCartItem={CartItems}/>
+      {cartItems && <Cart Close = {cartItemsClose}/>}
       <Music/>
       <Merch/>
       <button style={style}>See The Cart</button>
+      
       <Footer/>
     </div>
   );

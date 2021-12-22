@@ -1,7 +1,7 @@
 .headBody {
   text-align: center;
     margin: 0;
-    padding: 1px;
+  
     padding-bottom: 30px;
     background: #777;
     color: white;
@@ -9,11 +9,11 @@
 
 .innerHeader{
   width: 100%;
-  height: 46px;
+  height: 50px;
   display: block;
   background-color: #101010;
   position: fixed;
-  top: 0%;
+  top: 0;
   
 }
 
@@ -38,6 +38,7 @@
   height: 72%;
   list-style: none;
   margin-right: 100px;
+  padding-top: 12px;
 }
 
 .navigation a{
@@ -58,11 +59,12 @@
   color:white;
   font-family: 'Montserrat';
   font-size: 16px;
+  top: 5px;
   
 }
 
 .headBody h1{
-  padding-top: 10px;
+  padding-top: 45px;
     font-size: 100px;
     text-align: center;
     padding-bottom: 25px;

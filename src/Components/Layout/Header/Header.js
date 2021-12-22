@@ -1,8 +1,13 @@
+
 import React from "react";
 import styles from "./Header.module.css";
+import Cart from "../../Cart/Cart";
 
 
-const Header = () => {
+const Header = (props) => {
+
+  
+
   return (
       <div className={styles.headBody}>
         <div className={styles.innerHeader}>
@@ -13,7 +18,7 @@ const Header = () => {
             <a href="#"><li>HOME</li></a>
             <a href="#"><li>STORE</li></a>
             <a href="#"><li>ABOUT</li></a>
-            <button className={styles.cartBtn}><li>Cart 0</li></button>
+            <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>3</span></li></button>
           </ul>
           
         </div>
