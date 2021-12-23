@@ -1,8 +1,9 @@
 
 import React, { useContext } from "react";
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Cart } from "../../StoreContext/CartContext";
+import './Navlink.css'
 
 const Header = (props) => {
 
@@ -15,9 +16,9 @@ const Header = (props) => {
             <span>EcomStore</span>
           </div>
           <ul className={styles.navigation}>
-            <a href="/homepage"><li>HOME</li></a>
-            <Link to="/"><li>STORE</li></Link>
-            <Link to="/about"><li>ABOUT</li></Link>
+            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/homepage"><li>HOME</li></NavLink>
+            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/"><li>STORE</li></NavLink>
+            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/about"><li>ABOUT</li></NavLink>
             <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>{cart.length}</span></li></button>
           </ul>
           
