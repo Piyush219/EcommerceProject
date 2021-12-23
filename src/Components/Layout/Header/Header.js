@@ -1,11 +1,12 @@
 
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
+import { Cart } from "../../StoreContext/CartContext";
 
 const Header = (props) => {
 
-  const cartLength = props.cartNumber.length
+  const {cart} = useContext(Cart)
 
   return (
       <div className={styles.headBody}>
@@ -17,7 +18,7 @@ const Header = (props) => {
             <a href="/homepage"><li>HOME</li></a>
             <Link to="/"><li>STORE</li></Link>
             <Link to="/about"><li>ABOUT</li></Link>
-            <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>{cartLength}</span></li></button>
+            <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>{cart.length}</span></li></button>
           </ul>
           
         </div>

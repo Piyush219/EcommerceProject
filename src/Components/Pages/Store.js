@@ -4,7 +4,7 @@ import Music from "../Layout/Music/Music";
 const Store = (props) =>{
     return(
         <>
-        <Music AddToCartStore = {props.AddToCartApp}  cartApp ={props.cart} setCartApp = {props.setCart}/>
+        <Music />
         <Merch/>
         </>
     )
