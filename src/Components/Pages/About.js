@@ -1,9 +1,8 @@
 const About = () => {
   return (
     <div>
-      <h1>The Generics</h1>
 
-      <h3>About</h3>
+      <h3>About Page</h3>
       <p>
         Lorem ipsum carrots enhanced rebates. Excellent sayings of a man of
         sorrows, hates no prosecutors will unfold in the enduring of which were

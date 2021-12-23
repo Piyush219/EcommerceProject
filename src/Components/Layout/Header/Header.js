@@ -1,12 +1,11 @@
 
 import React from "react";
 import styles from "./Header.module.css";
-import Cart from "../../Cart/Cart";
-
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
 
-  
+  const cartLength = props.cartNumber.length
 
   return (
       <div className={styles.headBody}>
@@ -15,10 +14,10 @@ const Header = (props) => {
             <span>EcomStore</span>
           </div>
           <ul className={styles.navigation}>
-            <a href="#"><li>HOME</li></a>
-            <a href="#"><li>STORE</li></a>
-            <a href="#"><li>ABOUT</li></a>
-            <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>3</span></li></button>
+            <a href="/homepage"><li>HOME</li></a>
+            <Link to="/"><li>STORE</li></Link>
+            <Link to="/about"><li>ABOUT</li></Link>
+            <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>{cartLength}</span></li></button>
           </ul>
           
         </div>

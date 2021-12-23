@@ -33,7 +33,7 @@ const productsArr = [
   },
 ];
 
-const MusicProducts = () => {
+const MusicProducts = (props) => {
   return (
     <section className={styles.musicSection}>
       {productsArr.map((items) => {
@@ -49,13 +49,20 @@ const MusicProducts = () => {
                     {items.title} : 
                     ${items.price}
                   </span>
-                  <button className={styles.musicBtn}>ADD TO CART</button>
-
+                  {props.cartMusic.includes(items) ? (
+                    <button className={styles.musicBtn} onClick={()=> {
+                      props.setCartMusic(props.cartMusic.filter((c) => c.album !==items.album));
+                    }}>Remove From Cart</button>
+                  ): <button className={styles.musicBtn} onClick={()=> {
+                    props.setCartMusic([...props.cartMusic, items])
+                  }}>ADD TO CART</button>}
+                  
                 </li>
               </ul>
-          
+              
         );
       })}
+      {console.log(`props.cartMusic ${props.cartMusic}`)}
     </section>
   );
 };
