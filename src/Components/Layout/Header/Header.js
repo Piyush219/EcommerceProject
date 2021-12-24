@@ -19,6 +19,7 @@ const Header = (props) => {
             <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/homepage"><li>HOME</li></NavLink>
             <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/"><li>STORE</li></NavLink>
             <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/about"><li>ABOUT</li></NavLink>
+            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/contact"><li>CONTACT</li></NavLink>
             <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>{cart.length}</span></li></button>
           </ul>
           

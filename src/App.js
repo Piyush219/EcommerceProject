@@ -7,6 +7,7 @@ import About from "./Components/Pages/About";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import CartContext from "./Components/StoreContext/CartContext";
 import CartList from "./Components/Cart/CartList";
+import Contact from "./Components/Pages/Contact";
 
 function App() {
   
@@ -32,6 +33,20 @@ function App() {
     setCartItems(false)
   }
 
+  const putRequestHandler = async(contact) =>{
+    const response = await fetch("https://react-http-7d042-default-rtdb.firebaseio.com/contact.json", {
+        method: 'POST',
+        body: JSON.stringify(contact),
+        headers:{
+            'Content-Type': 'application/json'
+        }
+        
+    });
+    const data = await response.json();
+    console.log(data)
+
+}
+
 
   return (
     <CartContext>
@@ -43,6 +58,7 @@ function App() {
         <Route exact path="/" element={<Store/>} />
         <Route exact path="/about" element={<About/>} />
         <Route exact path="/homepage" element={<HomePage/>} />
+        <Route exact path="/contact" element={<Contact putRequest = {putRequestHandler}/>} />
       </Routes>
 
       <button style={style}>See The Cart</button>
