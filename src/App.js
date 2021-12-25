@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Footer from "./Components/Layout/Footer/Footer";
 import Header from "./Components/Layout/Header/Header";
 import Store from "./Components/Pages/Store";
@@ -10,14 +10,16 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import CartContext from "./Components/StoreContext/CartContext";
+
 import CartList from "./Components/Cart/CartList";
 import Contact from "./Components/Pages/Contact";
 import Login from "./Components/Pages/Login";
+import axios from "axios";
+import { Cart } from "./Components/StoreContext/CartContext";
 
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
-
+  
   const style = {
     color: "white",
     backgroundColor: "#383e3e",
@@ -32,12 +34,42 @@ function App() {
   };
 
   const [cartItems, setCartItems] = useState(false);
+  const {cart, setCart, userId, setUserId} = useContext(Cart)
+
+  useEffect(()=> {
+    if(localStorage.getItem('userId')){
+      setUserId(localStorage.getItem('userId'))
+    }
+   },[])
+
   const CartItems = () => {
     setCartItems(true);
+    axios.get(`https://crudcrud.com/api/0a02abc72e4b4103862469a3e8c178e9/cart${userId}`)
+      .then((response) => {
+        console.log(`Axios2: ${response}`)
+        console.log(`userId: ${userId}`)
+        console.log(`Response Data ${response.data}`)
+        response.data.map((item) =>{
+          console.log(`Response Data before ${item}`)
+          setCart((prevState) => ([
+            ...prevState, item
+          ]))
+          console.log(`Response Data after ${item}`)
+        })
+      }).catch((err) => {
+        console.log(`err: ${err}`)
+      })
+  
   };
   const cartItemsClose = () => {
     setCartItems(false);
   };
+
+ useEffect(()=> {
+  if(localStorage.getItem('TokenId')){
+    setIsloggedIn(true)
+  }
+ },[])
 
   const putRequestHandler = async (contact) => {
     const response = await fetch(
@@ -55,7 +87,7 @@ function App() {
   };
 
   return (
-    <CartContext>
+    <>
       <Header showCartItem={CartItems} />
       {cartItems && <CartList Close={cartItemsClose} />}
 
@@ -79,7 +111,7 @@ function App() {
       <button style={style}>See The Cart</button>
 
       <Footer />
-    </CartContext>
+    </>
   );
 }
 

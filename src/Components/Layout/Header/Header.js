@@ -5,9 +5,12 @@ import { NavLink } from "react-router-dom";
 import { Cart } from "../../StoreContext/CartContext";
 import './Navlink.css'
 
+
 const Header = (props) => {
 
   const {cart} = useContext(Cart)
+
+  
 
   return (
       <div className={styles.headBody}>
@@ -21,7 +24,7 @@ const Header = (props) => {
             <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/about"><li>About</li></NavLink>
             <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/contact"><li>Contact</li></NavLink>
             <NavLink className={(navData) => navData.isActive ? "active" : "" } to="/login"><li>Login</li></NavLink>
-            <button className={styles.cartBtn} onClick={props.showCartItem}><li>Cart <span>{cart.length}</span></li></button>
+            <button className={styles.cartBtn} onClick={props.showCartItem} ><li>Cart <span>{cart.length}</span></li></button>
           </ul>
           
         </div>
