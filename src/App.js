@@ -8,9 +8,10 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import CartContext from "./Components/StoreContext/CartContext";
 import CartList from "./Components/Cart/CartList";
 import Contact from "./Components/Pages/Contact";
+import Login from "./Components/Pages/Login";
 
 function App() {
-  
+
 
   const style = {
     'color': 'white',
@@ -59,6 +60,7 @@ function App() {
         <Route exact path="/about" element={<About/>} />
         <Route exact path="/homepage" element={<HomePage/>} />
         <Route exact path="/contact" element={<Contact putRequest = {putRequestHandler}/>} />
+        <Route exact path="/login" element={<Login />} />
       </Routes>
 
       <button style={style}>See The Cart</button>
