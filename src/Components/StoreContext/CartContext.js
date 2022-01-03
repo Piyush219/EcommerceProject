@@ -6,24 +6,11 @@ export const Cart = createContext();
 
 const CartContext = (props) => {
 
-    const cartElements = [
-        {
-          id: 'e1',
-          title: "Colors",
-      
-          price: 100,
-      
-          imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-      
-          quantity: 2,
-        },
-      
-      ];
-
-    const [cart, setCart] = useState(cartElements)
+    const [cart, setCart] = useState([])
     const [userId, setUserId] = useState('')
+    const [price, setPrice] = useState(0)
     return (
-        <Cart.Provider value = {{cart, setCart, userId , setUserId}}>
+        <Cart.Provider value = {{cart, setCart, userId , setUserId, price, setPrice}}>
             {props.children}
         </Cart.Provider>
     )

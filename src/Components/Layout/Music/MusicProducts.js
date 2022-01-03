@@ -41,13 +41,18 @@ const productsArr = [
 
 const MusicProducts = () => {
 
-  const {cart, setCart, userId, setUserId} = useContext(Cart)
+  const {cart, setCart, userId, setUserId, price, setPrice} = useContext(Cart)
+  
 
   function addItemHandler(product) {
     
       setCart([...cart, product])
+      
+      
+      setPrice(price+product.price)
+      
       console.log(`Id: ${userId}`)
-      axios.post(`https://crudcrud.com/api/0a02abc72e4b4103862469a3e8c178e9/cart${userId}`, product)
+      axios.post(`https://crudcrud.com/api/27949d8a177340c38605ce21b6db1ffa/cart${userId}`, product)
       .then((response) => {
         console.log(`Axios: ${response}`)
       }).catch((err) => {
@@ -57,6 +62,7 @@ const MusicProducts = () => {
 
   const removeItemHandler = (items)=>{
     setCart(cart.filter((c) => c.album !==items.album))
+    setPrice(price-items.price)
   }
 
   return (

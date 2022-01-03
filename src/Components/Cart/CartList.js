@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 
 const CartList = (props) => {
-const {cart} = useContext(Cart)
+const {cart,setCart, userId, setUserId, price} = useContext(Cart)
   
 
   const styleBtn = {
@@ -18,6 +18,7 @@ const {cart} = useContext(Cart)
     <section className={styles.cartBody}>
       <Button style={styleBtn} onClick={props.Close}>X</Button>
       <h2 className={styles.cartHeading}>CART</h2>
+      <h4>Total Price: ${price.toFixed(2)}</h4>
       
       <Row>
         <Col xs="4">
@@ -39,7 +40,7 @@ const {cart} = useContext(Cart)
             <Row>
               <Col xs="4">
                 <Col xs="6">
-                  <img className={styles.cartImages} src={items.imageUrl} />
+                  <img className={styles.cartImages} src={items.imageUrl} alt={items.title}/>
                 </Col>
                 <Col xs='6' className={styles.cartTitle} xs="6">{items.title}</Col>
               </Col>

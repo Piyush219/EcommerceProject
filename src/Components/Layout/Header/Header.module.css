@@ -5,6 +5,7 @@
     padding-bottom: 30px;
     background: #777;
     color: white;
+    overflow: hidden;
 }
 
 .innerHeader{

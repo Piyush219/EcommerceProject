@@ -5,7 +5,6 @@ import Store from "./Components/Pages/Store";
 import HomePage from "./Components/Pages/HomePage";
 import About from "./Components/Pages/About";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -19,7 +18,7 @@ import { Cart } from "./Components/StoreContext/CartContext";
 
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
-  
+
   const style = {
     color: "white",
     backgroundColor: "#383e3e",
@@ -34,43 +33,47 @@ function App() {
   };
 
   const [cartItems, setCartItems] = useState(false);
-  const {cart, setCart, userId, setUserId} = useContext(Cart)
+  const {cart, setCart, userId, setUserId } = useContext(Cart);
 
-  useEffect(()=> {
-    if(localStorage.getItem('userId')){
-      setUserId(localStorage.getItem('userId'))
+  useEffect(() => {
+    if (localStorage.getItem("userId")) {
+      setUserId(localStorage.getItem("userId"));
     }
-   },[])
+  }, [setUserId]);
 
   const CartItems = () => {
-    setCartItems(true);
-    axios.get(`https://crudcrud.com/api/0a02abc72e4b4103862469a3e8c178e9/cart${userId}`)
+    if (localStorage.getItem("userId")) {
+      setCartItems(true);
+    axios
+      .get(
+        `https://crudcrud.com/api/27949d8a177340c38605ce21b6db1ffa/cart${userId}`
+      )
       .then((response) => {
-        console.log(`Axios2: ${response}`)
-        console.log(`userId: ${userId}`)
-        console.log(`Response Data ${response.data}`)
-        response.data.map((item) =>{
-          console.log(`Response Data before ${item}`)
-          setCart((prevState) => ([
-            ...prevState, item
-          ]))
-          console.log(`Response Data after ${item}`)
-        })
-      }).catch((err) => {
-        console.log(`err: ${err}`)
+        console.log(`userId: ${userId}`);
+
+        response.data.map((item) => {
+          setCart((prevState) => [...prevState, item]);
+        });
       })
-  
-  };
+      .catch((err) => {
+        console.log(`err: ${err}`);
+      });
+  }
+  else{
+    alert('Please Login First')
+  }
+    }
+    
   const cartItemsClose = () => {
     setCartItems(false);
   };
 
- useEffect(()=> {
-  if(localStorage.getItem('TokenId')){
-    setIsloggedIn(true)
-  }
- },[])
-
+  useEffect(() => {
+    if (localStorage.getItem("TokenId")) {
+      setIsloggedIn(true);
+    }
+  }, []);
+    
   const putRequestHandler = async (contact) => {
     const response = await fetch(
       "https://react-http-7d042-default-rtdb.firebaseio.com/contact.json",
@@ -92,7 +95,7 @@ function App() {
       {cartItems && <CartList Close={cartItemsClose} />}
 
       <Routes>
-        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/" element={<Login />} />
         {isLoggedIn && <Route exact path="/store" element={<Store />} />}
         <Route exact path="/about" element={<About />} />
         <Route
@@ -102,13 +105,15 @@ function App() {
         />
         <Route
           exact
-          path="/login"
+          path="/"
           element={<Login checkLogin={setIsloggedIn} />}
         />
-        {!isLoggedIn && <Route path="*" element={<Navigate to="/login"></Navigate>}></Route>}
+        {!isLoggedIn && (
+          <Route path="*" element={<Navigate to="/"></Navigate>}></Route>
+        )}
       </Routes>
 
-      <button style={style}>See The Cart</button>
+      <button style={style} onClick={CartItems}>See The Cart</button>
 
       <Footer />
     </>
