@@ -1,5 +1,5 @@
-import React, {useContext}from "react";
-import { Cart } from '../../StoreContext/CartContext';
+import React, { useContext } from "react";
+import { Cart } from "../../StoreContext/CartContext";
 import styles from "./MerchProducts.module.css";
 
 const merchArr = [
@@ -10,30 +10,22 @@ const merchArr = [
   },
 
   {
-    title: "Black and white Colors",
+    title: "Printed Cup",
     price: 6.99,
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Cofee.png",
   },
 ];
 
 const MerchProducts = () => {
-
-  const {cart, setCart, userId,setUderId,price,setPrice} = useContext(Cart)
+  const cartCtx = useContext(Cart);
 
   function addItemHandler(product) {
-    
-      setCart((prevState)=> {
-        return [...prevState, product]
-      })
-      setPrice(price+product.price)
+    cartCtx.addItem({ ...product, quantity: 1 });
   }
 
-  const removeItemHandler = (items)=>{
-    setCart(cart.filter((c) => c.title !==items.title))
-    setPrice(price-items.price)
-  }
-
-
+  const removeItemHandler = (items) => {
+    cartCtx.removeItem(items.title);
+  };
 
   return (
     <section className={styles.merchSection}>
@@ -47,11 +39,21 @@ const MerchProducts = () => {
 
             <li className={styles.merchDetail}>
               <span>${items.price}</span>
-              {cart.includes(items) ? (
-                    <button className={styles.merchBtn} onClick={() => removeItemHandler(items)}
-                    >Remove From Cart</button>
-                  ): <button className={styles.merchBtn} onClick={() => addItemHandler(items)}
-                  >ADD TO CART</button>}
+              {cartCtx.items.some((item) => item.title === items.title) ? (
+                <button
+                  className={styles.merchBtn}
+                  onClick={() => removeItemHandler(items)}
+                >
+                  Remove From Cart
+                </button>
+              ) : (
+                <button
+                  className={styles.merchBtn}
+                  onClick={() => addItemHandler(items)}
+                >
+                  ADD TO CART
+                </button>
+              )}
             </li>
           </ul>
         );

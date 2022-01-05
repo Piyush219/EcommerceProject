@@ -14,3 +14,10 @@
     margin: 0 auto;
     font-family: 'Metal Mania';
 }
+
+footer {
+    clear: both;
+    position: relative;
+    height: 200px;
+    margin-top: -200px;
+}

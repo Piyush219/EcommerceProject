@@ -1,6 +1,6 @@
 .cartBody{
     margin: 0px;
-    width: 35%;
+    width: 25%;
     position: fixed;
     top: 50px;
     /* height: 95%; */
@@ -58,4 +58,10 @@ hr{
 .cartPrice{
     margin-right: 5px;
     left: 10px;
+}
+
+.listBtn{
+    border: none;
+    background-color: rgb(218, 189, 137);
+    cursor: pointer;
 }

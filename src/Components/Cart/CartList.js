@@ -5,8 +5,10 @@ import { Cart } from "../StoreContext/CartContext";
 import { useContext } from "react";
 
 
+
 const CartList = (props) => {
-const {cart,setCart, userId, setUserId, price} = useContext(Cart)
+const cartCtx = useContext(Cart)
+
   
 
   const styleBtn = {
@@ -14,11 +16,25 @@ const {cart,setCart, userId, setUserId, price} = useContext(Cart)
     'height': '40px',
     'marginTop' : '2%',
   }
+
+  const increaseQuantityHandler = (product)=>{
+    cartCtx.addItem({...product, quantity:1})
+    
+   
+    
+    
+  }
+
+  const decreaseQuantityHandler = (product) => {
+    cartCtx.removeItem(product.title)
+    
+  }
+
   return (
     <section className={styles.cartBody}>
       <Button style={styleBtn} onClick={props.Close}>X</Button>
       <h2 className={styles.cartHeading}>CART</h2>
-      <h4>Total Price: ${price.toFixed(2)}</h4>
+      <h4>Total Price: ${cartCtx.totalAmount}</h4>
       
       <Row>
         <Col xs="4">
@@ -34,9 +50,10 @@ const {cart,setCart, userId, setUserId, price} = useContext(Cart)
           <hr />
         </Col>
       </Row>
-      {cart.map((items) => {
+      
+      {cartCtx.items.map((items) => {
         return (
-          <Container style={{ marginTop: "20px" }}>
+          <Container key={items.title} style={{ marginTop: "20px" }}>
             <Row>
               <Col xs="4">
                 <Col xs="6">
@@ -46,17 +63,15 @@ const {cart,setCart, userId, setUserId, price} = useContext(Cart)
               </Col>
 
               <Col xs="4">${items.price}</Col>
-              <Col xs="4">{items.quantity}</Col>
+              <Col xs="4">
+                
+                <Col xs = '3'><button type="button" className={styles.listBtn} onClick={()=>increaseQuantityHandler(items)}>+</button></Col>
+                <Col xs = '6'>{items.quantity}</Col>
+                <Col xs = '3'><button type="button" className={styles.listBtn} onClick={()=>decreaseQuantityHandler(items)} >-</button></Col>
+              </Col>
             </Row>
             
           </Container>
-          
-          // <ul className={styles.cartList}>
-          //     <li><img className={styles.cartImages} src={items.imageUrl}/></li>
-          //     <li className={styles.cartTitle}>{items.title}</li>
-          //     <li className={styles.cartPrice}>{items.price}</li>
-          //     <li className={styles.cartQuantity}>{items.quantity}</li>
-          // </ul>
         );
       })}
     </section>

@@ -13,7 +13,7 @@ import {
 import CartList from "./Components/Cart/CartList";
 import Contact from "./Components/Pages/Contact";
 import Login from "./Components/Pages/Login";
-import axios from "axios";
+import axios from 'axios'
 import { Cart } from "./Components/StoreContext/CartContext";
 
 function App() {
@@ -33,36 +33,16 @@ function App() {
   };
 
   const [cartItems, setCartItems] = useState(false);
-  const {cart, setCart, userId, setUserId } = useContext(Cart);
+  const cartCtx = useContext(Cart)
+  // const {cart, setCart, userId, setUserId } = useContext(Cart);
 
   useEffect(() => {
     if (localStorage.getItem("userId")) {
-      setUserId(localStorage.getItem("userId"));
+      cartCtx.userId = (localStorage.getItem("userId"));
     }
-  }, [setUserId]);
+  }, [cartCtx]);
 
-  const CartItems = () => {
-    if (localStorage.getItem("userId")) {
-      setCartItems(true);
-    axios
-      .get(
-        `https://crudcrud.com/api/27949d8a177340c38605ce21b6db1ffa/cart${userId}`
-      )
-      .then((response) => {
-        console.log(`userId: ${userId}`);
-
-        response.data.map((item) => {
-          setCart((prevState) => [...prevState, item]);
-        });
-      })
-      .catch((err) => {
-        console.log(`err: ${err}`);
-      });
-  }
-  else{
-    alert('Please Login First')
-  }
-    }
+  
     
   const cartItemsClose = () => {
     setCartItems(false);
@@ -74,6 +54,10 @@ function App() {
     }
   }, []);
     
+  const CartItems = ()=>{
+    setCartItems(true)
+  }
+
   const putRequestHandler = async (contact) => {
     const response = await fetch(
       "https://react-http-7d042-default-rtdb.firebaseio.com/contact.json",
@@ -91,11 +75,11 @@ function App() {
 
   return (
     <>
-      <Header showCartItem={CartItems} />
+      <Header openCart = {setCartItems} />
       {cartItems && <CartList Close={cartItemsClose} />}
 
       <Routes>
-        <Route exact path="/" element={<Login />} />
+        <Route exact path="/" element={<Login checkLogin={setIsloggedIn}/>} />
         {isLoggedIn && <Route exact path="/store" element={<Store />} />}
         <Route exact path="/about" element={<About />} />
         <Route
@@ -103,17 +87,17 @@ function App() {
           path="/contact"
           element={<Contact putRequest={putRequestHandler} />}
         />
-        <Route
+        {/* <Route
           exact
           path="/"
           element={<Login checkLogin={setIsloggedIn} />}
-        />
+        /> */}
         {!isLoggedIn && (
           <Route path="*" element={<Navigate to="/"></Navigate>}></Route>
         )}
       </Routes>
 
-      <button style={style} onClick={CartItems}>See The Cart</button>
+      <button style={style} onClick={CartItems} >See The Cart</button>
 
       <Footer />
     </>
