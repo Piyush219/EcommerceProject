@@ -58,7 +58,7 @@ const Login = (props) => {
       <h2 style={{textAlign: "center"}}>Login</h2>
       <form
         onSubmit={submitHandler}
-        style={{ marginTop: "2%", textAlign: "center", marginTop: '4%', display:'block' }}
+        style={{ marginTop: "2%", textAlign: "center", display:'block' }}
       >
         <label htmlFor="loginInput">Email: </label><br/>
         <input type="text" id="loginInput" ref={loginEmailRef}></input><br/>

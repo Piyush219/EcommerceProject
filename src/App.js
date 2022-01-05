@@ -13,7 +13,6 @@ import {
 import CartList from "./Components/Cart/CartList";
 import Contact from "./Components/Pages/Contact";
 import Login from "./Components/Pages/Login";
-import axios from 'axios'
 import { Cart } from "./Components/StoreContext/CartContext";
 
 function App() {

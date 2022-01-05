@@ -23,6 +23,7 @@ const CartContext = (props) => {
     const cartContext = {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
+        userId: '',
         addItem: addItemHandler,
         removeItem: removeItemHandler
     };
